@@ -113,7 +113,7 @@ def acceptable_categories(setup, f, current, n_accept, rng):
     return list(rng.choice(targets, size=n_accept, replace=False))
 
 
-def simulate_user(setup, x, tightness, rng, shap_row=None, lam=0.7, k_range=(2, 4)):
+def simulate_user(setup, x, tightness, rng, shap_row=None, lam=0.7, k_range=(2, 8)):
     """Generate one Preferences object for applicant x."""
     spec, stats = setup["feature_spec"], setup["stats"]
     actionable = [f for f, s in spec.items() if s["action"] == "actionable"]
