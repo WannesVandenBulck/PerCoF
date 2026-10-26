@@ -1,4 +1,0 @@
-# This is the code for the PerCof problem 
-
-
-
