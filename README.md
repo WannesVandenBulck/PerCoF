@@ -1,10 +1,10 @@
 # PerCoF
 
-Code for my paper "PerCoF: Personalised Counterfactual Explanations with Metaheuristics" (University of Antwerp).
+Code for my paper "PerCoF: Personalised Counterfactual Explanations with Metaheuristics" for the metaheusristics PhD-course.
 
-PerCoF looks for counterfactuals that respect what a rejected applicant says they can change (which features, direction, max change, ranking). If nothing fits, it relaxes their limits step by step. I compare GA, NSGA-II, simulated annealing and random search on the German Credit dataset, with simulated users.
+PerCoF is a defined as a personalised countefactual explanation problem and looks for counterfactuals that respect what a rejected applicant says they can/want to change (which features, direction, max change, ranking). If nothing fits, it relaxes their limits step by step, first by relaxing the max change and later by adding features the user provided via a relucantcy ranking. I compare GA, NSGA-II, simulated annealing and random search on the German Credit dataset, with simulated user preferences.
 
-## Running it
+## Running the repo
 
 ```
 pip install -r requirements.txt
@@ -12,19 +12,19 @@ cd percof
 ```
 
 1. `prep_credit.ipynb` - data prep, random forest, saves `RF.pkl` and `percof_setup.pkl`
-2. `python users.py` - generates the simulated user profiles (`profiles.pkl`)
-3. `python experiments.py --workers 14 --budget 1000` (also ran with 100 and 250)
+2. `python users.py` - generates the simulated user preferences (`profiles.pkl`)
+3. `python experiments.py --workers 14 --budget 1000` (also ran with 100 and 250 budgets)
 4. `python analysis.py` - tables and tests in `tables/`
 5. `python visualise.py` - figures in `figures/`
 
-Step 3 takes about an hour with 14 workers, mostly because of SA. Results are already included (`results_budget_*.parquet`, `convergence_budget_*.parquet`), so you can skip to step 4.
+Step 3 takes about half an hour with 14 workers, mostly because of SA. Results are already included (`results_budget_*.parquet`, `convergence_budget_*.parquet`).
 
 ## Files
 
 - `problem.py` - problem definition (encoding, constraints, objectives)
 - `metaheuristics.py` - random search, GA, NSGA-II, SA
-- `relaxation.py` - relaxation procedure (bounds first, then reluctant features)
-- `users.py` - simulated users, with and without SHAP nudge
+- `relaxation.py` - relaxation procedure (bounds first, then features from reluctancy list)
+- `users.py` - simulated user preferences, with and without the SHAP nudge
 - `experiments.py` - runs everything
 
-Run on Python 3.14 with scikit-learn 1.8.0 (the pickled model needs this version).
+Run on Python 3.14 with scikit-learn 1.8.0.
